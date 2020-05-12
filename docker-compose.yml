@@ -3,7 +3,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: api.Dockerfile
     container_name: zuplae_web
     restart: always
     ports:
