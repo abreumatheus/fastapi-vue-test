@@ -1,0 +1,46 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zuplae_web
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - database
+    networks:
+      - frontend
+      - backend
+
+  database:
+    image: postgres:11.5-alpine
+    container_name: zuplae_db
+    restart: always
+    volumes:
+      - flaskapidb:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: zuplae
+      POSTGRES_PASSWORD: zuplae
+      POSTGRES_DB: zuplae
+      TZ: America/Sao_Paulo
+    networks:
+      - backend
+  adminer:
+    image: adminer
+    restart: always
+    container_name: zuplae_adminer
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    depends_on:
+      - database
+volumes:
+  flaskapidb:
+networks:
+  frontend:
+  backend:
