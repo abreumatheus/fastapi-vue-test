@@ -1,13 +1,13 @@
 version: '3'
 services:
-  web:
+  api:
     build:
       context: .
       dockerfile: api.Dockerfile
-    container_name: zuplae_web
+    container_name: zuplae_api
     restart: always
     ports:
-      - 80:80
+      - 8000:80
     depends_on:
       - database
     networks:
