@@ -29,6 +29,7 @@ services:
       TZ: America/Sao_Paulo
     networks:
       - backend
+
   adminer:
     image: adminer
     restart: always
