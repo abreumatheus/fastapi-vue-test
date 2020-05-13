@@ -7,7 +7,7 @@ services:
     container_name: zuplae_api
     restart: always
     ports:
-      - 8000:80
+      - 5000:80
     depends_on:
       - database
     networks:
