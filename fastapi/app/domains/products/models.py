@@ -1,7 +1,6 @@
-from sqlalchemy import String, Integer, Float, ForeignKey, Column, Text
-from sqlalchemy.dialects import postgresql
-from sqlalchemy.orm import relationship
 from app.db import Base
+from sqlalchemy.dialects import postgresql
+from sqlalchemy import String, Float, ForeignKey, Column, Text
 
 
 class Products(Base):
