@@ -3,8 +3,8 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy import String, Float, ForeignKey, Column, Text
 
 
-class Products(Base):
-    __tablename__ = 'products'
+class Product(Base):
+    __tablename__ = 'product'
 
     id = Column(String(255), primary_key=True)
     category_id = Column(ForeignKey('categories.id', ondelete='CASCADE'), index=True)
