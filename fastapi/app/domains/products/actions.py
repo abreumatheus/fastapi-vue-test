@@ -28,18 +28,14 @@ class ProductsActions(CrudBase):
         return new
 
     def update_product(self, product_in: dict):
-        for item in list(product_in):
-            if product_in[item] is None:
-                del product_in[item]
-            elif isinstance(product_in[item], str):
-                product_in[item] = product_in[item].title()
-        imovel = self.get_one_by(Products, {'id': product_in['id']})
-        imovel_dict = imovel.__dict__
+        product_in = cleanup_dict_and_title_strings(product_in)
+        product_in_db = self.get_one_by(Products, {'id': product_in['id']})
+        product_in_db_dict = product_in_db.__dict__
         for item in product_in:
-            if item in imovel_dict:
-                setattr(imovel, item, product_in[item])
-        updated = self.update(imovel)
+            if item in product_in_db_dict:
+                setattr(product_in_db, item, product_in[item])
+        updated = self.update(product_in_db)
         return updated
 
-    def delete_by_id(self, product_in):
+    def delete_product_by_id(self, product_in):
         self.delete_by(Products, product_in)
