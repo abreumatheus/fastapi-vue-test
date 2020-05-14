@@ -30,21 +30,21 @@ def get_all_products():
     return products
 
 
-@router.get('/{poduct_id}', response_model=Product)
-def get_product_by_id(poduct_id: str):
-    product = _CRUD_PRODUCTS.get_product_by_id(poduct_id)
+@router.get('/{product_id}', response_model=Product)
+def get_product_by_id(product_id: str):
+    product = _CRUD_PRODUCTS.get_product_by_id(product_id)
     return product
 
 
-@router.delete('/{poduct_id}', response_model=Message)
-def delete_product(poduct_id: str):
-    _CRUD_PRODUCTS.delete_by_id(poduct_id)
+@router.delete('/{product_id}', response_model=Message)
+def delete_product(product_id: str):
+    _CRUD_PRODUCTS.delete_product_by_id(product_id)
     return {"message": "Product deleted!"}
 
 
-@router.put('/{poduct_id}', response_model=Product)
-def update_product(poduct_id: str, product_in: ProductUpdate):
+@router.put('/{product_id}', response_model=Product)
+def update_product(product_id: str, product_in: ProductUpdate):
     product_in = product_in.dict()
-    product_in['id'] = poduct_id
+    product_in['id'] = product_id
     product = _CRUD_PRODUCTS.update_product(product_in)
     return product
