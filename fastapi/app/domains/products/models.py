@@ -12,13 +12,3 @@ class Product(Base):
     description = Column(Text, nullable=False)
     price = Column(Float, nullable=False)
     photos = Column(postgresql.ARRAY(String), nullable=True, default=['default.jpg'])
-
-
-class Categories(Base):
-    __tablename__ = 'categories'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
-
-    products = relationship('Products', primaryjoin='Categories.id == Products.category_id',
-                            backref='categories')
