@@ -1,6 +1,6 @@
 <template>
     <section id="nav">
-        <Navbar :is-logged="false"></Navbar>
+        <Navbar :is-logged="true"></Navbar>
         <Nuxt />
         <Footer></Footer>
     </section>
@@ -10,7 +10,7 @@
 import Navbar from '~/components/Navbar'
 import Footer from '~/components/Footer'
 export default {
-    name: 'Default',
+    name: 'Dashboard',
     components: { Footer, Navbar }
 }
 </script>

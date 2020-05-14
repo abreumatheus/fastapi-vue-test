@@ -1,16 +1,16 @@
 <template>
-    <b-navbar>
+    <b-navbar class="is-dark">
         <template slot="brand">
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">
+            <b-navbar-item tag="nuxt-link" :to="{ path: '/' }">
                 <h2>ZUPLAE</h2>
             </b-navbar-item>
         </template>
 
-        <template slot="end">
-            <b-navbar-item tag="div">
+        <template v-if="!isLogged" slot="end">
+            <b-navbar-item tag="nuxt-link" :to="{ path: '/dashboard' }">
                 <div class="buttons">
                     <a class="button is-primary mdi mdi-login">
-                        <strong>Enter</strong>
+                        <strong>Entrar</strong>
                     </a>
                 </div>
             </b-navbar-item>
@@ -20,7 +20,13 @@
 
 <script>
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    props: {
+        isLogged: {
+            type: Boolean,
+            required: true
+        }
+    }
 }
 </script>
 

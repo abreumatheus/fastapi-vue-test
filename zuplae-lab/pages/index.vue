@@ -9,7 +9,7 @@
                             ZUPLAE
                         </h1>
                         <h2 class="subtitle">
-                            Your online store!
+                            A sua loja online!
                         </h2>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
 
         <section id="body" class="section">
             <div class="container">
-                <h1 class="title is-2">Products</h1>
+                <h1 class="title is-2">Produtos</h1>
                 <ProductGrid></ProductGrid>
             </div>
         </section>

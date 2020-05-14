@@ -17,14 +17,22 @@
 
             <div class="content">
                 <small v-if="priceWas" class="has-text-grey-light"
-                    >de R$ {{ priceWas }} por</small
+                    >de R$
+                    {{ priceWas.toFixed(2).replace('.', ',') }} por</small
                 >
                 <br />
-                <strong>R$ {{ price * 0.9 }} à vista</strong>
+                <strong
+                    >R$ {{ (price * 0.9).toFixed(2).replace('.', ',') }} à
+                    vista</strong
+                >
                 <br />
-                <small>ou R$ {{ price }} em</small>
+                <small>ou R$ {{ price.toFixed(2).replace('.', ',') }} em</small>
                 <br />
-                <small>10x de R$ {{ price / 10 }} sem juros</small>
+                <small
+                    >10x de R$
+                    {{ (price / 10).toFixed(2).replace('.', ',') }} sem
+                    juros</small
+                >
             </div>
             <div class="card-footer">
                 <b-button type="is-primary" expanded>Ver</b-button>

@@ -2,16 +2,16 @@
     <section class="section">
         <div class="columns is-3">
             <div class="column is-one-quarter">
-                <Card price="200.00" price-was="250.00" title="Notebook"></Card>
+                <Card :price="200.0" :price-was="250.0" title="Notebook"></Card>
             </div>
             <div class="column is-one-quarter">
-                <Card price="200.00" price-was="250.00" title="Notebook"></Card>
+                <Card :price="200.0" :price-was="250.0" title="Notebook"></Card>
             </div>
             <div class="column is-one-quarter">
-                <Card price="200.00" price-was="250.00" title="Notebook"></Card>
+                <Card :price="200.0" :price-was="250.0" title="Notebook"></Card>
             </div>
             <div class="column is-one-quarter">
-                <Card price="200.00" price-was="250.00" title="Notebook"></Card>
+                <Card :price="200.0" :price-was="250.0" title="Notebook"></Card>
             </div>
         </div>
     </section>
