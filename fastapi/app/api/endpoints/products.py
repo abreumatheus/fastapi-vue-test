@@ -1,8 +1,8 @@
-from fastapi import APIRouter, UploadFile, File, Form
 from typing import List
+from app.utils.schemas import Message
+from fastapi import APIRouter, UploadFile, File, Form
 from app.domains.products.actions import ProductsActions
 from app.domains.products.schemas import Product, ProductUpdate
-from app.utils.schemas import Message
 
 router = APIRouter()
 _CRUD_PRODUCTS = ProductsActions()
