@@ -1,7 +1,7 @@
 <template>
-    <section id="nav">
+    <section id="nav" class="page-wrapper">
         <Navbar :is-logged="true"></Navbar>
-        <Nuxt />
+        <Nuxt class="content-wrapper" />
         <Footer></Footer>
     </section>
 </template>
@@ -15,4 +15,14 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1;
+}
+</style>

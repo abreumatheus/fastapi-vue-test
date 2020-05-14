@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-image">
-            <figure class="image is-4by5">
+            <figure class="image is-1by1">
                 <img
-                    src="https://picsum.photos/864/1080"
+                    src="https://picsum.photos/1080/1080"
                     alt="Placeholder image"
                 />
             </figure>

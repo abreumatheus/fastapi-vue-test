@@ -1,26 +1,21 @@
 <template>
-    <section class="section">
-        <div class="columns is-3">
-            <div
-                v-for="product in products"
-                :key="product.id"
-                class="column is-one-quarter"
-            >
-                <Card
-                    :price="product.price"
-                    :price-was="product.priceWas"
-                    :title="product.name"
-                ></Card>
-            </div>
-        </div>
+    <section class="container">
+        <h1 class="title is-3">Meus Produtos</h1>
+        <HorizontalCard
+            v-for="product in products"
+            :key="product.id"
+            :price="product.price"
+            :price-was="product.priceWas"
+            :title="product.name"
+        ></HorizontalCard>
     </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
+import HorizontalCard from '~/components/HorizontalCard'
 export default {
-    name: 'ProductGrid',
-    components: { Card },
+    name: 'MyProducts',
+    components: { HorizontalCard },
     data() {
         return {
             products: {

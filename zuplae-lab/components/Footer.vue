@@ -12,4 +12,14 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import '~bulma/sass/utilities/_all';
+@import '~bulma/bulma';
+@import '~buefy/src/scss/buefy';
+.footer {
+    @extend.footer;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+</style>
