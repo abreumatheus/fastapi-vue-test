@@ -7,7 +7,7 @@ class Product(Base):
     __tablename__ = 'product'
 
     id = Column(String(255), primary_key=True)
-    category_id = Column(ForeignKey('categories.id', ondelete='CASCADE'), index=True)
+    category_id = Column(ForeignKey('category.id', ondelete='CASCADE'), index=True)
     name = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
     price = Column(Float, nullable=False)
