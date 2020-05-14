@@ -17,11 +17,7 @@ class ProductsActions(CrudBase):
         return one
 
     def get_all_products_by(self, query: dict):
-        for item in list(query):
-            if query[item] is None:
-                del query[item]
-            elif isinstance(query[item], str):
-                query[item] = query[item].title()
+        query = cleanup_dict_and_title_strings(query)
         all = self.get_all_by(Products, query)
         return all
 
