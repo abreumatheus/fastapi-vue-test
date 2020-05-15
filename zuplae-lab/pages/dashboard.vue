@@ -11,6 +11,7 @@
                         ></NewProduct>
                         <MyProducts
                             v-else-if="currentComponentTab === 'MyProducts'"
+                            :products="products"
                         ></MyProducts>
                     </section>
                 </div>
@@ -30,12 +31,27 @@ export default {
     layout: 'Dashboard',
     data() {
         return {
-            currentComponentTab: 'NewProduct'
+            currentComponentTab: 'NewProduct',
+            isProductsLoading: true,
+            products: []
+        }
+    },
+    watch: {
+        currentComponentTab() {
+            if (this.currentComponentTab === 'MyProducts') {
+                this.getProdutcs()
+            }
         }
     },
     methods: {
         switchComponentTab(value) {
             this.currentComponentTab = value
+        },
+        async getProdutcs() {
+            this.products = await this.$axios.$get(
+                'http://localhost:5000/api/products/'
+            )
+            this.isProductsLoading = false
         }
     },
     head() {

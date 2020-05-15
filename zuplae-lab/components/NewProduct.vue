@@ -14,13 +14,11 @@
             <b-field grouped>
                 <b-field label="Categoria" expanded>
                     <b-select
-                        v-model="category"
+                        v-model="category_id"
                         placeholder="Selecionar..."
                         expanded
                     >
-                        <option value="1">Bulma</option>
-                        <option value="2">Vue.js</option>
-                        <option value="3">Buefy</option>
+                        <option :value="1">Eletrônicos</option>
                     </b-select>
                 </b-field>
                 <b-field label="Preço">
@@ -77,7 +75,7 @@ export default {
     data() {
         return {
             name: '',
-            category: '',
+            category_id: 1,
             description: '',
             price: 0,
             promotionalPrice: 0,
@@ -86,18 +84,31 @@ export default {
     },
     methods: {
         submitProduct() {
-            const response = {
-                name: this.name,
-                category: this.category,
-                description: this.description,
-                price: this.price,
-                promotionalPrice: this.promotionalPrice,
-                photos: this.photos
-            }
-            alert(JSON.stringify(response))
+            const requestBody = new FormData()
+            requestBody.set('name', this.name)
+            requestBody.set('category_id', this.category_id)
+            requestBody.set('description', this.description)
+            requestBody.set('price', this.price)
+            requestBody.set('promotional_price', this.promotionalPrice)
+            requestBody.append('photos', this.photos)
+            this.$axios
+                .$post('http://localhost:5000/api/products/', requestBody, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                .finally(() => this.successToast())
         },
         updatePhotos(value) {
             this.photos = value
+        },
+        successToast() {
+            this.$buefy.toast.open({
+                message: 'Produto cadastrado com sucesso!',
+                type: 'is-success'
+            })
+            this.redirectToHome()
+        },
+        redirectToHome() {
+            this.$router.push('/')
         }
     }
 }

@@ -4,6 +4,7 @@
             <b-menu-item
                 icon="plus"
                 label="Novo Produto"
+                active
                 @click="activeComponent = 'NewProduct'"
             ></b-menu-item>
         </b-menu-list>
@@ -12,7 +13,6 @@
                 label="Todos"
                 @click="activeComponent = 'MyProducts'"
             ></b-menu-item>
-            <b-menu-item label="Inativos"></b-menu-item>
         </b-menu-list>
         <b-menu-list label="Ações">
             <b-menu-item

@@ -5,12 +5,10 @@
             <div class="hero-body">
                 <div class="columns is-centered is-vcentered">
                     <div class="column is-half has-text-centered">
-                        <h1 class="title is-1">
-                            ZUPLAE
+                        <h1 id="main-title" class="title is-1">
+                            <br />
                         </h1>
-                        <h2 class="subtitle">
-                            A sua loja online!
-                        </h2>
+                        <h2 class="subtitle"><br /></h2>
                     </div>
                 </div>
             </div>
@@ -19,7 +17,10 @@
         <section id="body" class="section">
             <div class="container">
                 <h1 class="title is-2">Produtos</h1>
-                <ProductGrid></ProductGrid>
+                <ProductGrid
+                    v-if="!isProductsGridLoading"
+                    :products="products"
+                ></ProductGrid>
             </div>
         </section>
     </section>
@@ -27,10 +28,28 @@
 
 <script>
 import ProductGrid from '~/components/ProductGrid'
+
 export default {
     name: 'Index',
     components: { ProductGrid },
     layout: 'Default',
+    data() {
+        return {
+            products: [],
+            isProductsGridLoading: true
+        }
+    },
+    mounted() {
+        return this.getProdutcs()
+    },
+    methods: {
+        async getProdutcs() {
+            this.products = await this.$axios.$get(
+                'http://localhost:5000/api/products/'
+            )
+            this.isProductsGridLoading = false
+        }
+    },
     head() {
         return {
             title: 'Zuplae Store'
@@ -46,7 +65,11 @@ export default {
 
 .hero-home {
     @extend.hero;
-    background-image: url('https://blog.rentcars.com/wp-content/uploads/2020/01/vila-germanica-blumenau-sc_2.jpg');
-    background-position: bottom;
+    background-image: url('https://s.mlcdn.com.br/banner/campanhas/1305deskgalaxyflip.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#main-title {
+    color: #8c67ef;
 }
 </style>

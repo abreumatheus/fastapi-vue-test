@@ -3,7 +3,13 @@
         <div class="card-image">
             <figure class="image is-1by1">
                 <img
-                    src="https://picsum.photos/1080/1080"
+                    :src="
+                        'https://zuplae-tests.s3-sa-east-1.amazonaws.com/products/' +
+                            thumbnailPhotoId +
+                            '.jpeg'
+                    "
+                    width="500"
+                    height="500"
                     alt="Placeholder image"
                 />
             </figure>
@@ -57,6 +63,10 @@ export default {
             type: Number,
             required: false,
             default: null
+        },
+        thumbnailPhotoId: {
+            type: String,
+            required: true
         }
     }
 }

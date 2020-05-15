@@ -1,39 +1,20 @@
 <template>
-    <section>
-        <b-field label="Fotos" expanded>
-            <b-upload
-                v-model="dropFiles"
-                accept="image/*"
-                multiple
-                drag-drop
-                expanded
-            >
-                <section class="section">
-                    <div class="content has-text-centered">
-                        <p>
-                            <b-icon icon="upload" size="is-large"> </b-icon>
-                        </p>
-                        <p>Arraste as imagens aqui para enviá-las</p>
-                    </div>
-                </section>
-            </b-upload>
-        </b-field>
-
-        <div class="tags">
-            <span
-                v-for="(file, index) in dropFiles"
-                :key="index"
-                class="tag is-primary"
-            >
-                {{ file.name }}
-                <button
-                    class="delete is-small"
-                    type="button"
-                    @click="deleteDropFile(index)"
-                ></button>
-            </span>
-        </div>
-    </section>
+    <b-field class="file">
+        <b-upload v-model="file" accept="image/*">
+            <a class="button is-primary">
+                <b-icon icon="upload"></b-icon>
+                <span>Enviar Imagem</span>
+            </a>
+        </b-upload>
+        <span v-if="file" class="file-name">
+            {{ file.name
+            }}<button
+                class="delete is-small"
+                type="button"
+                @click="deleteFile()"
+            ></button>
+        </span>
+    </b-field>
 </template>
 
 <script>
@@ -41,20 +22,20 @@ export default {
     name: 'Dropbox',
     data() {
         return {
-            dropFiles: []
+            file: null
         }
     },
     watch: {
-        dropFiles() {
+        file() {
             this.emitEvent()
         }
     },
     methods: {
-        deleteDropFile(index) {
-            this.dropFiles.splice(index, 1)
+        deleteFile() {
+            this.file = null
         },
         emitEvent(event) {
-            this.$emit('dropFilesChanged', this.dropFiles)
+            this.$emit('dropFilesChanged', this.file)
         }
     }
 }

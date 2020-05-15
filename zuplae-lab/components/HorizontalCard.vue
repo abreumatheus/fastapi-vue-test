@@ -3,15 +3,24 @@
         <article class="media">
             <div class="media-left">
                 <figure class="is-1by1">
-                    <img src="https://picsum.photos/155/155" alt="Image" />
+                    <img
+                        :src="
+                            'https://zuplae-tests.s3-sa-east-1.amazonaws.com/products/' +
+                                thumbnailPhotoId +
+                                '.jpeg'
+                        "
+                        alt="Image"
+                        width="155"
+                        height="155"
+                    />
                 </figure>
             </div>
             <div class="media-content">
                 <div class="content">
                     <h3>{{ title }}</h3>
-                    <small v-if="priceWas" class="has-text-grey-light"
+                    <small v-if="promotionalPrice" class="has-text-grey-light"
                         >de R$
-                        {{ priceWas.toFixed(2).replace('.', ',') }}
+                        {{ promotionalPrice.toFixed(2).replace('.', ',') }}
                         por</small
                     >
                     <br />
@@ -58,10 +67,14 @@ export default {
             type: Number,
             required: true
         },
-        priceWas: {
+        promotionalPrice: {
             type: Number,
             required: false,
             default: null
+        },
+        thumbnailPhotoId: {
+            type: String,
+            required: true
         }
     }
 }
