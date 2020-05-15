@@ -11,13 +11,15 @@ _CRUD_PRODUCTS = ProductsActions()
 @router.post('/', response_model=Product)
 def new_product(name: str = Form(...),
                 description: str = Form(...),
-                price: str = Form(...),
-                category_id: str = Form(...),
+                price: float = Form(...),
+                promotional_price: float = Form(...),
+                category_id: int = Form(...),
                 photos: List[UploadFile] = File(...)):
 
     product_in = {"name": name,
                   "description": description,
                   "price": price,
+                  "promotional_price": promotional_price,
                   "category_id": category_id,
                   "photos": photos}
     product = _CRUD_PRODUCTS.add_new_product(product_in)
