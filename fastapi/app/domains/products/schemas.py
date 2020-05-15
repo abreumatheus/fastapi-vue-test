@@ -6,6 +6,7 @@ class ProductBase(BaseModel):
 	name: str
 	description: str
 	price: float
+	promotional_price: float
 
 
 class ProductInDB(ProductBase):
@@ -22,6 +23,7 @@ class ProductUpdate(ProductBase):
 	description: str = None
 	photos: List[str] = None
 	price: float = None
+	promotional_price: float = None
 
 
 class Product(ProductInDB):
