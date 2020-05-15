@@ -17,5 +17,9 @@ class CategoryUpdate(CategoryBase):
 	name: str = None
 
 
+class CategoryCreate(CategoryBase):
+	name: str = None
+
+
 class Category(CategoryInDB):
 	pass
