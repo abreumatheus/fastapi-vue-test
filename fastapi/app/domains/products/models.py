@@ -11,4 +11,5 @@ class Product(Base):
     name = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
     price = Column(Float, nullable=False)
+    promotional_price = Column(Float, nullable=False)
     photos = Column(postgresql.ARRAY(String), nullable=True, default=['default.jpg'])
