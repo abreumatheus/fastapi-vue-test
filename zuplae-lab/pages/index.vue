@@ -18,7 +18,7 @@
             <div class="container">
                 <h1 class="title is-2">Produtos</h1>
                 <ProductGrid
-                    v-if="!isProductsGridLoading"
+                    :loading="isProductsGridLoading"
                     :products="products"
                 ></ProductGrid>
             </div>
@@ -39,13 +39,18 @@ export default {
             isProductsGridLoading: true
         }
     },
+    computed: {
+        getApiUrl() {
+            return this.$store.state.baseApiURL
+        }
+    },
     mounted() {
         return this.getProdutcs()
     },
     methods: {
         async getProdutcs() {
             this.products = await this.$axios.$get(
-                'http://localhost:5000/api/products/'
+                this.getApiUrl + '/api/products/'
             )
             this.isProductsGridLoading = false
         }

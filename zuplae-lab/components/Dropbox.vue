@@ -20,9 +20,13 @@
 <script>
 export default {
     name: 'Dropbox',
-    data() {
-        return {
-            file: null
+    props: {
+        file: {
+            type: Object,
+            required: false,
+            default() {
+                return null
+            }
         }
     },
     watch: {

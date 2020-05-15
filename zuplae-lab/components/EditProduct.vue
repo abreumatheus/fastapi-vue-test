@@ -1,10 +1,12 @@
 <template>
-    <section class="container">
-        <h1 class="title is-3">Novo Produto</h1>
-        <section>
+    <div class="modal-card" style="width: auto">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Editar Produto</p>
+        </header>
+        <section class="modal-card-body">
             <b-field label="Nome">
                 <b-input
-                    v-model="name"
+                    v-model="product.name"
                     name="nome"
                     placeholder="Notebook Samsung"
                     expanded
@@ -14,7 +16,7 @@
             <b-field grouped>
                 <b-field label="Categoria" expanded>
                     <b-select
-                        v-model="category_id"
+                        v-model="product.category_id"
                         placeholder="Selecionar..."
                         expanded
                     >
@@ -23,63 +25,61 @@
                 </b-field>
                 <b-field label="Preço">
                     <vue-numeric
-                        v-model="price"
+                        v-model="product.price"
                         class="input"
                         currency="R$"
                         :precision="2"
                         separator="."
-                        placeholder="R$ 0,00"
                     ></vue-numeric>
                 </b-field>
                 <b-field label="Preço Promocional">
                     <vue-numeric
-                        v-model="promotionalPrice"
+                        v-model="product.promotional_price"
                         class="input"
                         currency="R$"
                         :precision="2"
                         separator="."
-                        placeholder="R$ 0,00"
                     ></vue-numeric>
                 </b-field>
             </b-field>
 
             <b-field label="Descrição">
-                <b-input v-model="description" type="textarea"></b-input>
+                <b-input
+                    v-model="product.description"
+                    type="textarea"
+                ></b-input>
             </b-field>
-
-            <Dropbox @dropFilesChanged="updatePhotos"></Dropbox>
-
             <hr />
-
+        </section>
+        <footer class="modal-card-foot">
             <b-field>
+                <b-button type="is-danger" outlined @click="$parent.close()">
+                    Cancelar
+                </b-button>
+
                 <b-button
                     type="is-primary"
                     icon-left="plus"
                     outlined
                     @click="submitProduct()"
                 >
-                    Criar
+                    Atualizar
                 </b-button>
             </b-field>
-        </section>
-    </section>
+        </footer>
+    </div>
 </template>
 
 <script>
 import VueNumeric from 'vue-numeric'
-import Dropbox from '~/components/Dropbox'
 
 export default {
-    name: 'NewProduct',
-    components: { Dropbox, VueNumeric },
-    data() {
-        return {
-            name: '',
-            category_id: 1,
-            description: '',
-            price: 0,
-            promotionalPrice: 0,
-            photos: null
+    name: 'EditProduct',
+    components: { VueNumeric },
+    props: {
+        product: {
+            type: Object,
+            required: true
         }
     },
     computed: {
@@ -90,26 +90,29 @@ export default {
     methods: {
         submitProduct() {
             const requestBody = new FormData()
-            requestBody.set('name', this.name)
-            requestBody.set('category_id', this.category_id)
-            requestBody.set('description', this.description)
-            requestBody.set('price', this.price)
-            requestBody.set('promotional_price', this.promotionalPrice)
-            requestBody.append('photos', this.photos)
+            requestBody.set('name', this.product.name)
+            requestBody.set('category_id', this.product.category_id)
+            requestBody.set('description', this.product.description)
+            requestBody.set('price', this.product.price)
+            requestBody.set('promotional_price', this.product.promotional_price)
             this.$axios
-                .$post(this.getApiUrl + '/api/products/', requestBody, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                })
-                .finally(() => this.onSuccess())
+                .$put(
+                    this.getApiUrl + '/api/products/' + this.product.id,
+                    requestBody,
+                    {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    }
+                )
+                .finally(() =>
+                    this.onSuccess('Produto cadastrado com sucesso!')
+                )
         },
-        updatePhotos(value) {
-            this.photos = value
-        },
-        onSuccess() {
+        onSuccess(msg) {
             this.$buefy.toast.open({
-                message: 'Produto cadastrado com sucesso!',
+                message: msg,
                 type: 'is-success'
             })
+            this.$parent.close()
             this.$emit('refreshPage')
         }
     }

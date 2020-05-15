@@ -1,14 +1,24 @@
 <template>
     <section class="container">
         <h1 class="title is-3">Meus Produtos</h1>
-        <HorizontalCard
-            v-for="product in products"
-            :key="product.id"
-            :price="product.price"
-            :promotional-price="product.promotionalPrice"
-            :title="product.name"
-            :thumbnail-photo-id="product.photos[0]"
-        ></HorizontalCard>
+        <div v-if="!loading">
+            <HorizontalCard
+                v-for="product in products"
+                :key="product.id"
+                :product="product"
+                @refreshPage="$emit('refreshPage')"
+                @deleteProduct="deleteProduct(product)"
+            ></HorizontalCard>
+        </div>
+        <template v-for="repeat in 4" v-else>
+            <div :key="repeat">
+                <b-skeleton width="20%" :animated="true"></b-skeleton>
+                <b-skeleton width="40%" :animated="true"></b-skeleton>
+                <b-skeleton width="80%" :animated="true"></b-skeleton>
+                <b-skeleton :animated="true"></b-skeleton>
+                <br />
+            </div>
+        </template>
     </section>
 </template>
 
@@ -24,6 +34,31 @@ export default {
             default() {
                 return []
             }
+        },
+        loading: {
+            type: Boolean,
+            required: false,
+            default() {
+                return true
+            }
+        }
+    },
+    computed: {
+        getApiUrl() {
+            return this.$store.state.baseApiURL
+        }
+    },
+    methods: {
+        deleteProduct(product) {
+            this.$axios.$delete(this.getApiUrl + '/api/products/' + product.id)
+            this.onSuccess('Produto deletado com sucesso!')
+        },
+        onSuccess(msg) {
+            this.$buefy.toast.open({
+                message: msg,
+                type: 'is-success'
+            })
+            this.$emit('refreshPage')
         }
     }
 }

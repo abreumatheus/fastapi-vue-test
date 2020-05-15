@@ -1,5 +1,5 @@
 <template>
-    <section class="section">
+    <section v-if="!loading" class="section">
         <div class="columns is-3">
             <div
                 v-for="product in products"
@@ -8,10 +8,20 @@
             >
                 <Card
                     :price="product.price"
-                    :price-was="product.promotionalPrice"
+                    :price-was="product.promotional_price"
                     :title="product.name"
                     :thumbnail-photo-id="product.photos[0]"
                 ></Card>
+            </div>
+        </div>
+    </section>
+    <section v-else class="section">
+        <div class="columns is-3">
+            <div v-for="repeat in 4" :key="repeat" class="column is-one-fourth">
+                <b-skeleton width="20%" :animated="true"></b-skeleton>
+                <b-skeleton width="40%" :animated="true"></b-skeleton>
+                <b-skeleton width="80%" :animated="true"></b-skeleton>
+                <b-skeleton :animated="true"></b-skeleton>
             </div>
         </div>
     </section>
@@ -28,6 +38,13 @@ export default {
             required: true,
             default() {
                 return []
+            }
+        },
+        loading: {
+            type: Boolean,
+            required: false,
+            default() {
+                return true
             }
         }
     }

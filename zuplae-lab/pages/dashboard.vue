@@ -8,10 +8,13 @@
                     <section class="column is-three-quarters">
                         <NewProduct
                             v-if="currentComponentTab === 'NewProduct'"
+                            @refreshPage="goToHome"
                         ></NewProduct>
                         <MyProducts
                             v-else-if="currentComponentTab === 'MyProducts'"
                             :products="products"
+                            :loading="isProductsLoading"
+                            @refreshPage="refreshPage"
                         ></MyProducts>
                     </section>
                 </div>
@@ -36,6 +39,11 @@ export default {
             products: []
         }
     },
+    computed: {
+        getApiUrl() {
+            return this.$store.state.baseApiURL
+        }
+    },
     watch: {
         currentComponentTab() {
             if (this.currentComponentTab === 'MyProducts') {
@@ -48,10 +56,18 @@ export default {
             this.currentComponentTab = value
         },
         async getProdutcs() {
+            this.isProductsLoading = true
+            this.products = []
             this.products = await this.$axios.$get(
-                'http://localhost:5000/api/products/'
+                this.getApiUrl + '/api/products/'
             )
             this.isProductsLoading = false
+        },
+        goToHome() {
+            this.$router.push('/')
+        },
+        refreshPage() {
+            this.$router.go()
         }
     },
     head() {
