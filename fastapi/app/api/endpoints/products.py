@@ -2,7 +2,7 @@ from typing import List
 from app.utils.schemas import Message
 from fastapi import APIRouter, UploadFile, File, Form
 from app.domains.products.actions import ProductsActions
-from app.domains.products.schemas import Product, ProductUpdate
+from app.domains.products.schemas import Product
 
 router = APIRouter()
 _CRUD_PRODUCTS = ProductsActions()
@@ -15,7 +15,6 @@ def new_product(name: str = Form(...),
                 promotional_price: float = Form(...),
                 category_id: int = Form(...),
                 photos: List[UploadFile] = File(...)):
-
     product_in = {"name": name,
                   "description": description,
                   "price": price,
@@ -45,8 +44,16 @@ def delete_product(product_id: str):
 
 
 @router.put('/{product_id}', response_model=Product)
-def update_product(product_id: str, product_in: ProductUpdate):
-    product_in = product_in.dict()
-    product_in['id'] = product_id
+def update_product(product_id: str, name: str = Form(...),
+                   description: str = Form(...),
+                   price: float = Form(...),
+                   promotional_price: float = Form(...),
+                   category_id: int = Form(...)):
+    product_in = {"id": product_id,
+                  "name": name,
+                  "description": description,
+                  "price": price,
+                  "promotional_price": promotional_price,
+                  "category_id": category_id}
     product = _CRUD_PRODUCTS.update_product(product_in)
     return product

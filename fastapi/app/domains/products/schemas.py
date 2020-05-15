@@ -6,7 +6,7 @@ class ProductBase(BaseModel):
 	name: str
 	description: str
 	price: float
-	promotional_price: float
+	promotional_price: float = None
 
 
 class ProductInDB(ProductBase):
@@ -16,14 +16,6 @@ class ProductInDB(ProductBase):
 
 	class Config:
 		orm_mode = True
-
-
-class ProductUpdate(ProductBase):
-	name: str = None
-	description: str = None
-	photos: List[str] = None
-	price: float = None
-	promotional_price: float = None
 
 
 class Product(ProductInDB):
