@@ -2,15 +2,15 @@ from typing import List
 from fastapi import APIRouter
 from app.utils.schemas import Message
 from app.domains.categories.actions import CategoryActions
-from app.domains.categories.schemas import Category, CategoryUpdate
+from app.domains.categories.schemas import Category, CategoryUpdate, CategoryCreate
 
 router = APIRouter()
 _CRUD_CATEGORIES = CategoryActions()
 
 
 @router.post('/', response_model=Category)
-def new_category(name: str):
-    category_in = {"name": name}
+def new_category(category_in: CategoryCreate):
+    category_in = category_in.dict()
     category = _CRUD_CATEGORIES.add_new_category(category_in)
     return category
 
