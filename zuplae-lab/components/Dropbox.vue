@@ -7,8 +7,8 @@
             </a>
         </b-upload>
         <span v-if="file" class="file-name">
-            {{ file.name
-            }}<button
+            {{ file.name }}
+            <button
                 class="delete is-small"
                 type="button"
                 @click="deleteFile()"
