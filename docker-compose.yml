@@ -30,16 +30,6 @@ services:
     networks:
       - backend
 
-  adminer:
-    image: adminer
-    restart: always
-    container_name: zuplae_adminer
-    ports:
-      - 8080:8080
-    networks:
-      - backend
-    depends_on:
-      - database
 volumes:
   flaskapidb:
 networks:
