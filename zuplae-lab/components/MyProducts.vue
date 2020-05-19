@@ -51,6 +51,8 @@ export default {
     methods: {
         deleteProduct(product) {
             this.$axios.$delete(this.getApiUrl + '/api/products/' + product.id)
+            const index = this.products.indexOf(product)
+            this.products.splice(index, 1)
             this.onSuccess('Produto deletado com sucesso!')
         },
         onSuccess(msg) {

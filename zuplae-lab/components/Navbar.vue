@@ -9,9 +9,9 @@
         <template v-if="!isLogged" slot="end">
             <b-navbar-item tag="nuxt-link" :to="{ path: '/dashboard' }">
                 <div class="buttons">
-                    <a class="button is-primary mdi mdi-login">
-                        <strong>Entrar</strong>
-                    </a>
+                    <b-button icon-left="login" type="is-primary">
+                        Entrar
+                    </b-button>
                 </div>
             </b-navbar-item>
         </template>
