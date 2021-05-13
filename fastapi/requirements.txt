@@ -10,7 +10,7 @@ Mako==1.1.2
 MarkupSafe==1.1.1
 Pillow==7.1.1
 psycopg2==2.8.5
-pydantic==1.4
+pydantic==1.6.2
 python-dateutil==2.8.1
 python-editor==1.0.4
 python-multipart==0.0.5
